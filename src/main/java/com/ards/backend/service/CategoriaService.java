@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.ards.backend.domain.Categoria;
+import com.ards.backend.dtos.CategoriaDTO;
 import com.ards.backend.repositories.CategoriaRepository;
 import com.ards.backend.service.excetions.ObjectNotFoundException;
 
@@ -29,6 +30,13 @@ public class CategoriaService {
     public Categoria create(Categoria obj){
 
         obj.setId(null);
+        return repository.save(obj);
+    }
+
+    public Categoria create(Integer id, CategoriaDTO objDto){
+        Categoria obj = findById(id);
+        obj.setNome(objDto.getNome());
+        obj.setDescricao(objDto.getDescricao());
         return repository.save(obj);
     }
 
