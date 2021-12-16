@@ -1,6 +1,10 @@
 package com.ards.backend.resources;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.ards.backend.domain.Categoria;
+import com.ards.backend.dtos.CategoriaDTO;
 import com.ards.backend.service.CategoriaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +21,17 @@ public class CategoriaResource {
     @Autowired
     private CategoriaService service;
 
-
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Categoria> findById(@PathVariable Integer id){        
+    public ResponseEntity<Categoria> findById(@PathVariable Integer id) {
         Categoria obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 
-    
+    @GetMapping
+    public ResponseEntity<List<CategoriaDTO>> findAll() {
+        List<Categoria> list = service.findAll();
+        List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
+    }
+
 }

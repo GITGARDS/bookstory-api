@@ -1,5 +1,6 @@
 package com.ards.backend.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.ards.backend.domain.Categoria;
@@ -19,6 +20,10 @@ public class CategoriaService {
         Optional<Categoria> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
             "Objeto não encontrado! ID = "  +  id  + ", Tipo: " + Categoria.class.getName()));
+    }
+
+    public List<Categoria> findAll(){
+        return repository.findAll();
     }
 
 }
