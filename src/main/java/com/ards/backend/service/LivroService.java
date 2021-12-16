@@ -3,6 +3,7 @@ package com.ards.backend.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.ards.backend.domain.Categoria;
 import com.ards.backend.domain.Livro;
 import com.ards.backend.repositories.LivroRepository;
 import com.ards.backend.service.excetions.ObjectNotFoundException;
@@ -42,6 +43,14 @@ public class LivroService {
         newObj.setTitulo(obj.getTitulo());
         newObj.setNome_autor(obj.getNome_autor());
         newObj.setTexto(obj.getTexto());
+
+    }
+
+    public Livro create(Integer id_cat, Livro obj) {
+        obj.setId(null);
+        Categoria cat = categoriaService.findById(id_cat);
+        obj.setCategoria(cat);
+        return repository.save(obj);
 
     }
 
