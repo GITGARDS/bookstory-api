@@ -10,15 +10,28 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 
 @Entity
-public class Livro implements Serializable{
+public class Livro implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotEmpty(message = "Campo TITULO é requerido!")
+    //@Length(min = 10, max = 50, message = "O Campo TITULO deve ter entre 10 a 50 caracteres!")
     private String titulo;
-    private String nome_autor;    
+
+    @NotEmpty(message = "Campo NOME DO AUTOR é requerido!")
+    @Length(min = 10, max = 50, message = "O Campo NOME DO AUTOR deve ter entre 10 a 50 caracteres!")
+    private String nome_autor;
+
+    @NotEmpty(message = "Campo TEXTO é requerido!")
+//    @Length(min = 50, max = 2000000, message = "O Campo TEXTO deve ter entre 50 a 2.000.000 caracteres!")
     private String texto;
 
     @JsonIgnore
@@ -97,6 +110,6 @@ public class Livro implements Serializable{
         }
         final Livro other = (Livro) obj;
         return Objects.equals(this.id, other.id);
-    } 
-    
+    }
+
 }
